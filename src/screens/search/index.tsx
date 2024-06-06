@@ -3,8 +3,8 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  Alert,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -12,10 +12,9 @@ import SearchBar from './components/searchBar';
 import {searchCreators} from './redux/search.action';
 import UserCard from './components/userCard';
 import {styles} from './styles';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from '../../utils/responsive';
+import ChevronUp from '../../assets/svgs/chevron';
+import ChevronDown from '../../assets/svgs/chevron-down';
+import {theme} from '../../common/theme';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -23,6 +22,7 @@ const Search = () => {
   const {searchedUsers} = useSelector((state: IInitialState) => state.search);
 
   const [search, setSearch] = useState<string>('');
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
   const handleSearch = () => {
     dispatch(searchCreators.searchUser(search));
@@ -40,45 +40,38 @@ const Search = () => {
           setSearch={setSearch}
           handleSearch={handleSearch}
         />
-        <View
-          style={{
-            alignSelf: 'flex-end',
-            marginTop: heightPercentageToDP(1),
-            marginRight: widthPercentageToDP(4),
-          }}>
-          <Text>Options</Text>
+        <TouchableOpacity
+          onPress={() => setShowOptions(!showOptions)}
+          style={styles.options}>
+          <Text style={styles.optionsText}>Options</Text>
+          {showOptions ? <ChevronUp /> : <ChevronDown />}
+        </TouchableOpacity>
+      </View>
+      {showOptions ? (
+        <View style={styles.dropDown}>
+          <Pressable
+            onPress={() => {
+              dispatch(searchCreators.sortUsers('name')), setShowOptions(false);
+            }}
+            style={[
+              styles.sortOptions,
+              {
+                borderColor: theme.lighterGray,
+                borderBottomWidth: 1,
+              },
+            ]}>
+            <Text>Sort by name</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              dispatch(searchCreators.sortUsers('lowest-ranked')),
+                setShowOptions(false);
+            }}
+            style={styles.sortOptions}>
+            <Text>Lowest ranked</Text>
+          </Pressable>
         </View>
-      </View>
-      <View
-        style={{
-          width: widthPercentageToDP(30),
-          backgroundColor: 'red',
-          position: 'absolute',
-          zIndex: 99999,
-          top: heightPercentageToDP(16),
-          right: widthPercentageToDP(5),
-          paddingVertical: heightPercentageToDP(1),
-          alignItems: 'flex-start',
-        }}>
-        <Pressable
-          onPress={() => dispatch(searchCreators.sortUsers('name'))}
-          style={{
-            alignSelf: 'flex-end',
-            marginVertical: heightPercentageToDP(1),
-            marginRight: widthPercentageToDP(3),
-          }}>
-          <Text>Sort by name</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => dispatch(searchCreators.sortUsers('lowest-ranked'))}
-          style={{
-            alignSelf: 'flex-end',
-            marginVertical: heightPercentageToDP(1),
-            marginRight: widthPercentageToDP(3),
-          }}>
-          <Text>Lowest ranked</Text>
-        </Pressable>
-      </View>
+      ) : null}
 
       <View style={styles.renderList}>
         <FlatList

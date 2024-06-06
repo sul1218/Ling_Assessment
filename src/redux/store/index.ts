@@ -8,12 +8,6 @@ export default function configureStore({initialState}: any) {
   const sagaMiddleware = createSagaMiddleware();
   middlewares.push(sagaMiddleware);
 
-  // Remove redux-flipper debugger
-  // if (__DEV__) {
-  //   const createDebugger = require('redux-flipper').default;
-  //   middlewares.push(createDebugger());
-  // }
-
   const store = createStore(
     rootReducer,
     initialState,
