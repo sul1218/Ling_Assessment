@@ -28,22 +28,7 @@ export const styles = StyleSheet.create({
     marginRight: wp(4),
     flexDirection: 'row',
   },
-  optionsText: {marginRight: wp(2)},
-  dropDown: {
-    width: wp(30),
-    backgroundColor: theme.white,
-    position: 'absolute',
-    zIndex: 99999,
-    top: hp(16),
-    right: wp(5),
-    alignItems: 'flex-start',
-    borderColor: theme.lighterGray,
-    borderWidth: 1,
-    borderRadius: wp(2),
-  },
-  sortOptions: {
-    width: wp(30),
-    paddingLeft: wp(2),
-    paddingVertical: hp(1),
+  optionsText: {
+    marginRight: wp(2),
   },
 });

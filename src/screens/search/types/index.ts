@@ -21,3 +21,8 @@ interface ISearchByName {
   usersList: IUser[] | undefined;
   searchTerm: string;
 }
+
+interface IDropDown {
+  showOptions: boolean;
+  setShowOptions: (showOptions: boolean) => void;
+}

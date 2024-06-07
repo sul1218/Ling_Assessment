@@ -3,7 +3,6 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  Pressable,
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -14,7 +13,7 @@ import UserCard from './components/userCard';
 import {styles} from './styles';
 import ChevronUp from '../../assets/svgs/chevron';
 import ChevronDown from '../../assets/svgs/chevron-down';
-import {theme} from '../../common/theme';
+import DropDown from './components/dropDown';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -47,31 +46,7 @@ const Search = () => {
           {showOptions ? <ChevronUp /> : <ChevronDown />}
         </TouchableOpacity>
       </View>
-      {showOptions ? (
-        <View style={styles.dropDown}>
-          <Pressable
-            onPress={() => {
-              dispatch(searchCreators.sortUsers('name')), setShowOptions(false);
-            }}
-            style={[
-              styles.sortOptions,
-              {
-                borderColor: theme.lighterGray,
-                borderBottomWidth: 1,
-              },
-            ]}>
-            <Text>Sort by name</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              dispatch(searchCreators.sortUsers('lowest-ranked')),
-                setShowOptions(false);
-            }}
-            style={styles.sortOptions}>
-            <Text>Lowest ranked</Text>
-          </Pressable>
-        </View>
-      ) : null}
+      <DropDown showOptions={showOptions} setShowOptions={setShowOptions} />
 
       <View style={styles.renderList}>
         <FlatList

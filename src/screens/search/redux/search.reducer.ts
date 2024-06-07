@@ -17,9 +17,11 @@ const getUsersData = (state: ISearch) => {
 };
 
 const searchUser = (state: ISearch, {info}: {info: string}) => {
+  const response = require('../../../common/leaderboard.json');
+  const users = createUsersList(response);
   return {
     ...state,
-    searchedUsers: searchByName({usersList: state.usersList, searchTerm: info}),
+    searchedUsers: searchByName({usersList: users, searchTerm: info}),
   };
 };
 
