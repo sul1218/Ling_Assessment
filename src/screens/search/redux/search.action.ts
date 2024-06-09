@@ -2,9 +2,7 @@ import {createActions} from 'reduxsauce';
 
 const {Types, Creators} = createActions({
   usersData: null,
-
   searchUser: ['info'],
-
   sortUsers: ['info'],
 });
 

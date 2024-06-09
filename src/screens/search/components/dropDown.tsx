@@ -8,40 +8,31 @@ import {
   heightPercentageToDP as hp,
 } from '../../../utils/responsive';
 
-const DropDown = ({showOptions, setShowOptions}: IDropDown) => {
+export const DropDown = ({setShowOptions}: IDropDown) => {
   const dispatch = useDispatch();
   return (
-    <>
-      {showOptions ? (
-        <View style={styles.dropDown}>
-          <Pressable
-            onPress={() => {
-              dispatch(searchCreators.sortUsers('name')), setShowOptions(false);
-            }}
-            style={[
-              styles.sortOptions,
-              {
-                borderColor: theme.lighterGray,
-                borderBottomWidth: 1,
-              },
-            ]}>
-            <Text>Sort by name</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              dispatch(searchCreators.sortUsers('lowest-ranked')),
-                setShowOptions(false);
-            }}
-            style={styles.sortOptions}>
-            <Text>Lowest ranked</Text>
-          </Pressable>
-        </View>
-      ) : null}
-    </>
+    <View style={styles.dropDown}>
+      <Pressable
+        onPress={() => {
+          dispatch(searchCreators.sortUsers('name')), setShowOptions(false);
+        }}
+        style={[
+          styles.sortOptions,
+          {borderColor: theme.lighterGray, borderBottomWidth: 1},
+        ]}>
+        <Text>Sort by name</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          dispatch(searchCreators.sortUsers('lowest-ranked')),
+            setShowOptions(false);
+        }}
+        style={styles.sortOptions}>
+        <Text>Lowest ranked</Text>
+      </Pressable>
+    </View>
   );
 };
-
-export default DropDown;
 
 const styles = StyleSheet.create({
   dropDown: {

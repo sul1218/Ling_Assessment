@@ -6,19 +6,21 @@ import {
 } from '../../../utils/responsive';
 import {theme} from '../../../common/theme';
 
-const UserCard = ({user, index}: IUserCard) => {
+const UserCard = ({user}: IUserCard) => {
   return (
     <View
       style={[
         styles.container,
         {
           backgroundColor: user?.searched
-            ? theme?.backgorund.lightBackground
+            ? theme.backgorund.lightBackground
             : theme.white,
         },
       ]}>
       <View style={styles.info}>
-        <Text style={styles.infoTitle}>{user?.name}</Text>
+        <Text style={styles.infoTitle}>
+          {user?.name ? user?.name : 'Ling User'}
+        </Text>
         <Text>{user?.bananas} bananas</Text>
       </View>
       <View style={styles.rankContainer}>
@@ -39,11 +41,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.lighterGray,
     borderRadius: wp(2),
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 0},
-    // shadowOpacity: 0.4,
-    // shadowRadius: 2,
-    // elevation: 5,
   },
   info: {
     width: wp(80),
@@ -56,10 +53,7 @@ const styles = StyleSheet.create({
     lineHeight: hp(3),
     color: theme.black,
   },
-  rankContainer: {
-    width: wp(14),
-    justifyContent: 'center',
-  },
+  rankContainer: {width: wp(14), justifyContent: 'center'},
   rank: {
     width: wp(10),
     height: wp(10),

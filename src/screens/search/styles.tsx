@@ -28,7 +28,5 @@ export const styles = StyleSheet.create({
     marginRight: wp(4),
     flexDirection: 'row',
   },
-  optionsText: {
-    marginRight: wp(2),
-  },
+  optionsText: {marginRight: wp(2)},
 });

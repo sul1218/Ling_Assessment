@@ -7,37 +7,33 @@ import {
 } from '../../../utils/responsive';
 import {theme} from '../../../common/theme';
 
-const SearchBar = ({
-  search,
-  setSearch,
-  handleSearch,
-}: {
+interface Props {
   search: string;
   setSearch: (search: string) => void;
-  handleSearch: any;
-}) => {
+  handleSearch: () => void;
+}
+
+const SearchBar = ({search, setSearch, handleSearch}: Props) => {
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.searchIcon}>
-          <SearchIcon />
-        </View>
-        <View style={styles.input}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="User Name"
-            placeholderTextColor={theme.fontColors.light2}
-            value={search}
-            onChangeText={text => setSearch(text)}
-          />
-        </View>
-        <View style={styles.search}>
-          <Pressable onPress={handleSearch} style={styles.searchButton}>
-            <Text style={styles.searchText}>Search</Text>
-          </Pressable>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.searchIcon}>
+        <SearchIcon />
       </View>
-    </>
+      <View style={styles.input}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="User Name"
+          placeholderTextColor={theme.fontColors.light}
+          value={search}
+          onChangeText={text => setSearch(text)}
+        />
+      </View>
+      <View style={styles.search}>
+        <Pressable onPress={handleSearch} style={styles.searchButton}>
+          <Text style={styles.searchText}>Search</Text>
+        </Pressable>
+      </View>
+    </View>
   );
 };
 
@@ -53,13 +49,8 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
   },
   searchIcon: {width: '14%', alignItems: 'center', justifyContent: 'center'},
-  input: {
-    width: '56%',
-  },
-  textInput: {
-    height: hp(5),
-    borderColor: 'yelllow',
-  },
+  input: {width: '56%'},
+  textInput: {height: hp(5), borderColor: 'yelllow'},
   search: {width: '30%'},
   searchButton: {
     backgroundColor: 'red',

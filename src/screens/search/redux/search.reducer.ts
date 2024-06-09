@@ -1,24 +1,18 @@
 import {createReducer} from 'reduxsauce';
 import initialStates from '../../../redux/store/initialStates';
 import {searchTypes} from './search.action';
-import {createUsersList, searchByName} from '../index.functions';
+import {createUsersList, searchByName} from '../../../utils/functionsUtils';
+import data from '../../../common/leaderboard.json';
 
 export const INITIAL_STATE = initialStates.search;
 
 const getUsersData = (state: ISearch) => {
-  const response = require('../../../common/leaderboard.json');
-  const users = createUsersList(response);
-
-  return {
-    ...state,
-    usersList: users,
-    searchedUsers: users,
-  };
+  const users = createUsersList(data);
+  return {...state, usersList: users, searchedUsers: users};
 };
 
 const searchUser = (state: ISearch, {info}: {info: string}) => {
-  const response = require('../../../common/leaderboard.json');
-  const users = createUsersList(response);
+  const users = createUsersList(data);
   return {
     ...state,
     searchedUsers: searchByName({usersList: users, searchTerm: info}),
@@ -30,10 +24,7 @@ const sortUsers = (state: ISearch, {info}: {info: string}) => {
     info === 'name'
       ? state.searchedUsers?.sort((a, b) => a.name.localeCompare(b.name))
       : state.usersList?.sort((a, b) => b.rank - a.rank);
-  return {
-    ...state,
-    searchedUsers: sortedArray,
-  };
+  return {...state, searchedUsers: sortedArray};
 };
 
 export const HANDLERS = {
