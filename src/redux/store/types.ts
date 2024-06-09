@@ -5,6 +5,6 @@ interface IInitialState {
 }
 
 interface ISearch {
-  usersList: IUser[] | undefined;
-  searchedUsers: IUser[] | undefined;
+  usersList: IUser[] | [];
+  searchedUsers: IUser[] | [];
 }
